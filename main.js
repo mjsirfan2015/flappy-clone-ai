@@ -1,8 +1,20 @@
 
 var pipes=[],pa;
 const space=200;
-
+var fl;
 function setup(){
+    createCanvas(640, 480);
+    background(0);
+    fl=new flappy_bird();
+   // fl.draw();
+}
+function draw(){
+    console.log(fl.pos,HEIGHT);
+    background(0);
+    fall(fl);
+    fl.draw();
+}
+/*function setup(){
     createCanvas(640, 480);
     background(0);
     
@@ -12,6 +24,7 @@ function setup(){
     
     
 }
+
 function draw(){
     console.log(posx);
     background(0);
@@ -29,4 +42,4 @@ function draw(){
     
     }
         
-}
+}*/
