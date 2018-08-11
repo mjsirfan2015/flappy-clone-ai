@@ -13,7 +13,7 @@ function setup(){
     
 }
 function draw(){
-    //console.log(posx);
+    console.log(posx);
     background(0);
     if(pipes.length>0){
         if(pipes[pipes.length-1].posx==WIDTH-(space-pw)){
