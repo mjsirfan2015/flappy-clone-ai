@@ -46,10 +46,11 @@ function gameover(bird){
 function initai(flappy,pipe){
     var move=parseInt(random(0,2));
     if(move==1){
-        fall(fl,gravity-fl_lift);
+        fall(flappy,gravity-fl_lift);
+        
     }
     else{
-        fall(f1,gravity);
+        fall(f1appy,gravity);
     }
     
     flappy.moveset.push(move);

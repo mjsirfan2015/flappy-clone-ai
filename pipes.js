@@ -35,3 +35,11 @@ function hasdisappeared(){
     else return true;
     
 }
+
+function get_nearest_pipe(pipes,posx){
+    for(i=0;i<pipes.length;i++){
+        if(pipes[i].posx>posx){
+            return pipes[i];
+        }
+    }
+}

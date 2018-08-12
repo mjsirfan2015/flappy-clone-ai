@@ -1,19 +1,8 @@
 
 var pipes=[],pa;
-const space=200;
+const space=200,gen=12;
 var fl;
-/*function setup(){
-    createCanvas(640, 480);
-    background(0);
-    fl=new flappy_bird();
-   // fl.draw();
-}
-function draw(){
-    console.log(fl.vel);
-    background(0);
-    fall(fl,gravity);
-    fl.draw();
-}*/
+var flappies=[],livecount=gen;
 
 function setup(){
     createCanvas(640, 480);
@@ -21,14 +10,22 @@ function setup(){
     
         pa=posx;
         pipes.push(new Pipe(pa));
-        fl=new flappy_bird();   
-    
+        for(i=0;i<gen;i++){
+            flappies.push(new flappy_bird())
+        }   
+        console.log(flappies[i]);
     
 }
 
 function draw(){
 
     //console.log(posx);
+    if(livecount==0){
+        max_brd=get_max_flappy(flappies);
+        text("MAX Score: "+max_brd.score);
+        console.log(max_brd.moveset,max_brd.inputset);       
+    }
+
     
     background(0);
     if(pipes.length>0){
@@ -44,22 +41,31 @@ function draw(){
         }
     
     }
-    fall(fl,gravity);
-    fl.draw();
-    for(i=0;i<pipes.length;i++){
-        if(collideRectCircle(pipes[i].posx,0,pw,pipes[i].uh,fl.pos.x,fl.pos.y,fl_rad)
-        ||collideRectCircle(pipes[i].posx,pipes[i].uh+gap,pw,pipes[i].dh,fl.pos.x,fl.pos.y,2*fl_rad)||
-    (fl.pos.y)>=(HEIGHT-2*fl_rad)){
-            //console.log(fl.pos.y,HEIGHT);
-            final_score=gameover(fl);
-            fill(255);
-            text(final_score+"",10,10);
-    }
-    }
+    
+    //initial flappyai
+    for(i=0;i<gen;i++){
+        initai(flappies,get_nearest_pipe(pipes));
+        //collision test
+        collisiontest(flappies[i],pipes);
+    }  
+    
+   
 }
 
 function keyPressed(){
     if(key==' '){
         fall(fl,gravity-fl_lift);
+    }
+}
+function collisiontest(fl,pipes){
+    for(i=0;i<pipes.length;i++){
+        if(collideRectCircle(pipes[i].posx,0,pw,pipes[i].uh,fl.pos.x,fl.pos.y,fl_rad)
+        ||collideRectCircle(pipes[i].posx,pipes[i].uh+gap,pw,pipes[i].dh,fl.pos.x,fl.pos.y,2*fl_rad)||
+    (fl.pos.y)>=(HEIGHT-2*fl_rad)){
+            //console.log(fl.pos.y,HEIGHT);
+            gameover(fl);
+            livecount--;
+            text("Alive: "+livecount,10,10);
+    }
     }
 }
