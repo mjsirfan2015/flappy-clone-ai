@@ -1,7 +1,7 @@
 const WIDTH=640,HEIGHT=480;
 const gap=150;
 const speed=1;
-const pw=30
+const pw=30;
 const windows={w:WIDTH,h:HEIGHT};
 const minheight=50,
 maxheight=HEIGHT-(gap+minheight),
