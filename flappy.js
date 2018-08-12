@@ -10,7 +10,8 @@ function flappy_bird(){
     this.vel=0;
     this.gameover=false;
     this.score=0;
-    //this.flap=flap;
+    this.moveset=[];
+    this.inputset=[];
 };
 
 function drawbird(){
@@ -41,4 +42,25 @@ function fall(bird,g){
 function gameover(bird){
     bird.gameover=true;
     return bird.score;
+}
+function initai(flappy,pipe){
+    var move=parseInt(random(0,2));
+    if(move==1){
+        fall(fl,gravity-fl_lift);
+    }
+    else{
+        fall(f1,gravity);
+    }
+    
+    flappy.moveset.push(move);
+    flappy.inputset.push([flappy.pos,flappy.vel,get_pipe_dist(flappy,pipe),pipe.uh,pipe.dh]);
+}
+function get_pipe_dist(flappy,pipe){
+    return flappy.pos.x-pipe.posx;
+}
+function get_max_flappy(flappies){
+    flappies.sort(function(a,b){
+        var x=a.score,y=b.score;
+        return ((x<y)?-1:((x>y)?1:0));
+    })
 }
